@@ -38,3 +38,24 @@ if (formSearch) {
     })
 }
 // End form search
+
+// Pagination
+const buttonPaginations = document.querySelectorAll("[button-pagination]");
+
+if (buttonPaginations) {
+    let url = new URL(window.location.href);    // lấy đường dẫn url
+
+    buttonPaginations.forEach(button => {
+        button.addEventListener("click", () => {
+            const page = button.getAttribute("button-pagination"); 
+    
+            if (page) {
+                url.searchParams.set("page", page); // thêm params vào đường dẫn
+            }   else {
+                url.searchParams.delete("page");// xóa params khỏi đường dẫn
+            }
+            window.location.href = url.href;    // câu lệnh chuyển hướng sang trang khác
+        });
+    });
+}
+// End pagination
