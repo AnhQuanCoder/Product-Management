@@ -6,7 +6,7 @@ module.exports.index = async (req, res) => {
         //  Lấy data theo điều kiện
         status: "active",
         deleted: false
-    });
+    }).sort( {position: "desc"} );
 
     // Dùng forEach để thêm 1 thuộc tính mới
     products.forEach((item) => {
