@@ -2,12 +2,14 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 
 block main
+    +alert-success(5000)
     +alert-error(5000)
+
     h1(class="mb-4") #{pageTitle}
-    
+
     form(
-        action=`${prefixAdmin}/products/create`
-        id="form-create-product"
+        action=`${prefixAdmin}/products/edit/${product.id}/?_method=PATCH`
+        id="form-edit-product"
         method="POST" 
         enctype="multipart/form-data"
     ) 
@@ -20,6 +22,7 @@ block main
                 id="title"
                 name="title"
                 required
+                value=product.title
             ) 
 
         div(class="form-group")
@@ -30,7 +33,8 @@ block main
             id="desc"
             name="description"
             rows="5"
-        )
+            value=product.description
+        ) #{product.description}
 
         div(class="form-group")
             label(for="price") Giá
@@ -39,7 +43,7 @@ block main
                 class="form-control"
                 id="price"
                 name="price"
-                value="0"
+                value=product.price
                 min="0"
             ) 
 
@@ -50,7 +54,7 @@ block main
                 class="form-control"
                 id="discount"
                 name="discountPercentage"
-                value="0"
+                value=product.discountPercentage
                 min="0"
             )
 
@@ -61,7 +65,7 @@ block main
                 class="form-control"
                 id="stock"
                 name="stock"
-                value="0"
+                value=product.stock
                 min="0"
             ) 
 
@@ -80,7 +84,7 @@ block main
             )
             div(class="image-container")
                 img(
-                    src=""
+                    src=product.thumbnail
                     upload-image-preview
                     class="image-preview"
                 )
@@ -95,6 +99,7 @@ block main
                 name="position"
                 placeHolder="Tự động tăng"
                 min="1"
+                value=product.position
             )
 
         div(class="form-group form-check form-check-inline")
@@ -102,9 +107,9 @@ block main
                 type="radio"
                 class="form-check-input"
                 id="statusActive"
-                checked
                 name="status"
                 value="active"
+                checked = (product.status == "active" ? true : false)
             )
             label(for="statusActive" class="form-check-lable mb-0" ) Hoạt động
 
@@ -114,7 +119,8 @@ block main
                 class="form-check-input"
                 id="statusInActive"
                 name="status"
-                value="statusInActive"
+                value="inactive"
+                checked = (product.status == "inactive" ? true : false)
             )
             label(for="statusActive" class="form-check-lable mb-0" ) Dừng hoạt động
 
@@ -122,6 +128,6 @@ block main
             button(
                 type="submit"
                 class="btn btn-primary"
-            )   Tạo mới
+            )   Lưu lại
 
-    script(src="/admin/js/products.js") 
+    script(src="/admin/js/products.js")
