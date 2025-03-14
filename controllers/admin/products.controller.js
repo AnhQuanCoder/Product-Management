@@ -182,3 +182,23 @@ module.exports.editPatch = async (req, res) => {
     }
     res.redirect("back");
 }
+
+// [GET] /admin/products/detail/:id
+module.exports.detail = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const find = {
+            _id: id,
+            deleted: false
+        }
+
+        const product = await Product.findOne(find);
+        console.log(product);
+        res.render("admin/pages/products/detail", {
+            product: product
+        })
+
+    } catch (error) {
+        res.redirect("/admin/products");
+    }
+}

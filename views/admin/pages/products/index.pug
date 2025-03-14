@@ -88,9 +88,10 @@ block main
                                             button-change-status
                                         ) Dừng hoạt động
                                 td 
-                                    a(href=`${prefixAdmin}/products/edit/${item.id}` class="btn btn-warning btn-sm") Sửa 
+                                    a(href=`${prefixAdmin}/products/detail/${item.id}` class="btn btn-secondary btn-sm mr-1") Chi tiết 
+                                    a(href=`${prefixAdmin}/products/edit/${item.id}` class="btn btn-warning btn-sm mr-1") Sửa 
                                     button(
-                                        class="btn btn-danger btn-sm ml-1"
+                                        class="btn btn-danger btn-sm"
                                         data-id=item.id 
                                         button-delete
                                     ) Xóa 
