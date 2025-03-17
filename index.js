@@ -35,7 +35,7 @@ app.use(flash());
 // App local variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
-app.use(express.static(`${__dirname}/public`))
+app.use(express.static(`${__dirname}/public`));
 
 // Route
 route(app);
