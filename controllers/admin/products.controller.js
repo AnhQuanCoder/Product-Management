@@ -115,8 +115,6 @@ module.exports.changeMulti = async (req, res) => {
         let [id, position] = item.split("-");
         position = parseInt(position);
 
-        console.log(`${id} - ${position}`);
-
         await Product.updateOne({ _id: id }, { position: position });
       }
       req.flash(
