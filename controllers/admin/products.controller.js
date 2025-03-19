@@ -200,9 +200,29 @@ module.exports.edit = async (req, res) => {
 
     const product = await Product.findOne(find);
 
+    const categorys = await ProductsCategory.find({ deleted: false });
+
+    function createTree(arr, parentId = "") {
+      const tree = [];
+      arr.forEach((item) => {
+        if (item.parent_id === parentId) {
+          const newItem = item;
+          const children = createTree(arr, item.id);
+          if (children.length > 0) {
+            newItem.children = children;
+          }
+          tree.push(newItem);
+        }
+      });
+      return tree;
+    }
+
+    const newCategorys = createTree(categorys);
+
     res.render(`admin/pages/products/edit.pug`, {
       pageTitle: "Chỉnh sửa sản phẩm",
       product: product,
+      categorys: newCategorys,
     });
   } catch (error) {
     res.redirect(`/admin/products`);
