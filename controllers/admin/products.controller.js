@@ -239,6 +239,13 @@ module.exports.detail = async (req, res) => {
     };
 
     const product = await Product.findOne(find);
+    const categoryId = product.products_category_id;
+
+    if (categoryId) {
+      const category = await ProductsCategory.findOne({ _id: categoryId });
+      product.categoryName = category.title;
+    }
+
     res.render("admin/pages/products/detail", {
       product: product,
     });
