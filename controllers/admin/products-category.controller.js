@@ -24,31 +24,40 @@ module.exports.index = async (req, res) => {
   }
   // End search
 
-  // Pagination
-  const countProductsCategory = await ProductsCategory.countDocuments(find);
-  let objectPagination = paginationHelper(
-    {
-      currentPage: 1,
-      limitItems: 4,
-    },
-    countProductsCategory,
-    req.query
-  );
-
   // Sort
   const sort = {};
   if (req.query.sortKey && req.query.sortValue) {
     sort[req.query.sortKey] = req.query.sortValue;
   }
   // End sort
+
+  let count = 0;
+  function createTree(arr, parentId = "") {
+    const tree = [];
+    arr.forEach((item) => {
+      if (item.parent_id === parentId) {
+        count++;
+        const newItem = item;
+        newItem.index = count;
+        const children = createTree(arr, item.id);
+        if (children.length > 0) {
+          newItem.children = children;
+        }
+        tree.push(newItem);
+      }
+    });
+    return tree;
+  }
+
   const records = await ProductsCategory.find(find).sort(sort);
+
+  const newRecords = createTree(records);
 
   res.render("admin/pages/products-category/index.pug", {
     pageTitle: "Danh mục sản phẩm",
-    records: records,
+    records: newRecords,
     filterStatus: filterStatus,
     keyword: objectSearch.keyword,
-    pagination: objectPagination,
   });
 };
 
@@ -115,9 +124,33 @@ module.exports.changeMulti = async (req, res) => {
 };
 
 // [GET] admin/products-category/create
-module.exports.create = (req, res) => {
+module.exports.create = async (req, res) => {
+  const find = {
+    deleted: false,
+  };
+
+  function createTree(arr, parentId = "") {
+    const tree = [];
+    arr.forEach((item) => {
+      if (item.parent_id === parentId) {
+        const newItem = item;
+        const children = createTree(arr, item.id);
+        if (children.length > 0) {
+          newItem.children = children;
+        }
+        tree.push(newItem);
+      }
+    });
+    return tree;
+  }
+
+  const records = await ProductsCategory.find(find);
+
+  const newRecords = createTree(records);
+
   res.render("admin/pages/products-category/create.pug", {
     pageTitle: "Tạo danh mục sản phẩm",
+    records: newRecords,
   });
 };
 
