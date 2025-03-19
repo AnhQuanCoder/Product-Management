@@ -1,15 +1,14 @@
 extends ../../layouts/default.pug
+include ../../mixins/select-tree.pug
 include ../../mixins/alert.pug
 
 block main
     +alert-success(5000)
     +alert-error(5000)
-
     h1(class="mb-4") #{pageTitle}
-
+    
     form(
-        action=`${prefixAdmin}/products/edit/${product.id}/?_method=PATCH`
-        id="form-edit-product"
+        action=`${prefixAdmin}/products-category/edit/${data.id}?_method=PATCH`
         method="POST" 
         enctype="multipart/form-data"
     ) 
@@ -22,8 +21,19 @@ block main
                 id="title"
                 name="title"
                 required
-                value=product.title
+                value=data.title
             ) 
+
+        div(class="form-group")
+            label(for="parent_id") Danh mục cha
+                select(
+                    name="parent_id"
+                    id="parent_id"
+                    class="form-control"
+                ) 
+                    option(value="") -- Chọn danh mục cha --
+                    if (records)
+                         +select-tree(records, 1, data.parent_id)
 
         div(class="form-group")
         label(for="desc") Mô tả
@@ -33,41 +43,7 @@ block main
             id="desc"
             name="description"
             rows="5"
-            value=product.description
-        ) #{product.description}
-
-        div(class="form-group")
-            label(for="price") Giá
-            input(
-                type="number"
-                class="form-control"
-                id="price"
-                name="price"
-                value=product.price
-                min="0"
-            ) 
-
-        div(class="form-group")
-            label(for="discount") % Giảm giá
-            input(
-                type="number"
-                class="form-control"
-                id="discount"
-                name="discountPercentage"
-                value=product.discountPercentage
-                min="0"
-            )
-
-        div(class="form-group")
-            label(for="stock") Số lượng
-            input(
-                type="number"
-                class="form-control"
-                id="stock"
-                name="stock"
-                value=product.stock
-                min="0"
-            ) 
+        ) #{data.description}
 
         div(
             class="form-group"
@@ -84,7 +60,7 @@ block main
             )
             div(class="image-container")
                 img(
-                    src=product.thumbnail
+                    src=data.thumbnail
                     upload-image-preview
                     class="image-preview"
                 )
@@ -99,7 +75,7 @@ block main
                 name="position"
                 placeHolder="Tự động tăng"
                 min="1"
-                value=product.position
+                value=data.position
             )
 
         div(class="form-group form-check form-check-inline")
@@ -107,9 +83,9 @@ block main
                 type="radio"
                 class="form-check-input"
                 id="statusActive"
+                checked = data.status == "active" ? true : false
                 name="status"
                 value="active"
-                checked = (product.status == "active" ? true : false)
             )
             label(for="statusActive" class="form-check-lable mb-0" ) Hoạt động
 
@@ -120,7 +96,7 @@ block main
                 id="statusInActive"
                 name="status"
                 value="inactive"
-                checked = (product.status == "inactive" ? true : false)
+                checked = data.status == "inactive" ? true : false
             )
             label(for="statusActive" class="form-check-lable mb-0" ) Dừng hoạt động
 
@@ -128,6 +104,6 @@ block main
             button(
                 type="submit"
                 class="btn btn-primary"
-            )   Lưu lại
+            )   Cập nhật
 
-    script(src="/admin/js/products.js")
+    script(src="/admin/js/products.js") 

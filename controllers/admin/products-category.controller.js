@@ -175,3 +175,59 @@ module.exports.detail = (req, res) => {
     pageTitle: "Chi tiết danh mục",
   });
 };
+
+// [GET] admin/products-category/edit/:id
+module.exports.edit = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const record = await ProductsCategory.findOne(
+      { _id: id },
+      { deleted: false }
+    );
+
+    function createTree(arr, parentId = "") {
+      const tree = [];
+      arr.forEach((item) => {
+        if (item.parent_id === parentId) {
+          const newItem = item;
+          const children = createTree(arr, item.id);
+          if (children.length > 0) {
+            newItem.children = children;
+          }
+          tree.push(newItem);
+        }
+      });
+      return tree;
+    }
+
+    const records = await ProductsCategory.find({
+      deleted: false,
+    });
+
+    const newRecords = createTree(records);
+
+    res.render("admin/pages/products-category/edit.pug", {
+      pageTitle: "Chỉnh sửa danh mục",
+      data: record,
+      records: newRecords,
+    });
+  } catch (error) {
+    res.redirect(`${systemConfig.prefixAdmin}/products-category`);
+  }
+};
+
+// [PATCH] admin/products-category/edit/:id
+module.exports.editPatch = async (req, res) => {
+  const id = req.params.id;
+  req.body.position = parseInt(req.body.position);
+
+  try {
+    await ProductsCategory.updateOne({ _id: id }, req.body);
+    req.flash("success", "Cập nhật sản phẩm thành công");
+    res.redirect("back");
+  } catch (error) {
+    req.flash("error", "Cập nhật sản phẩm thất bại");
+    res.redirect(`${systemConfig.prefixAdmin}/products-category`);
+  }
+};
