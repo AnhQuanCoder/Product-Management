@@ -1,4 +1,5 @@
 const Product = require("../../models/product.model");
+const ProductsCategory = require("../../models/products-category.model");
 
 const systemConfig = require("../../config/system");
 
@@ -141,8 +142,32 @@ module.exports.deleteItem = async (req, res) => {
 
 // [GET] /admin/products/create
 module.exports.createItem = async (req, res) => {
+  const find = {
+    deleted: false,
+  };
+
+  const categorys = await ProductsCategory.find(find);
+
+  function createTree(arr, parentId = "") {
+    const tree = [];
+    arr.forEach((item) => {
+      if (item.parent_id === parentId) {
+        const newItem = item;
+        const children = createTree(arr, item.id);
+        if (children.length > 0) {
+          newItem.children = children;
+        }
+        tree.push(newItem);
+      }
+    });
+    return tree;
+  }
+
+  const newCategorys = createTree(categorys);
+
   res.render("admin/pages/products/create.pug", {
     pageTitle: "Thêm mới sản phẩm",
+    categorys: newCategorys,
   });
 };
 
