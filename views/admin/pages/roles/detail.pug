@@ -1,0 +1,13 @@
+extend ../../layouts/default.pug
+
+block main 
+    if (record.title)
+        h1(class="mb-4") #{record.title}
+
+    if (record.description)
+        div(class="mb-4") Mô tả: !{record.description}
+
+    a(href=`${prefixAdmin}/roles/edit/${record.id}` class="btn btn-warning btn-sm mr-1") Sửa quyền
+    
+
+    script(src="/admin/js/product.js") 
