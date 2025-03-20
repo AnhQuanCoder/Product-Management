@@ -1,1 +1,34 @@
-h1 Ok
+extend ../../layouts/default.pug
+
+block main 
+    if (category.title)
+        h1(class="mb-4") #{category.title}
+
+    if (category.nameCategoryParent)
+        div(class="mb-4") Thuộc danh mục: <b> #{category.nameCategoryParent} </b>
+
+    if (category.thumbnail)
+        div(class="mb-4")
+            img(
+                src=category.thumbnail
+                style="width: 100px"
+            )
+            
+    if (category.status)
+        div(class="mb-4")
+            span Trạng thái: 
+            if (category.status == "active")
+                span(class="badge badge-success") Hoạt động
+            else
+                span(class="badge badge-danger") Dừng hoạt động
+
+    if (category.position)
+        div(class="mb-4") Vị trí: <b> #{category.position} </b>
+
+    if (category.description)
+        div(class="mb-4") Mô tả: !{category.description}
+
+    a(href=`${prefixAdmin}/products-category/edit/${category.id}` class="btn btn-warning btn-sm mr-1") Sửa danh mục
+    
+
+    script(src="/admin/js/product.js") 

@@ -170,9 +170,34 @@ module.exports.createItemPost = async (req, res) => {
 };
 
 // [GET] admin/products-category/detail/:id
-module.exports.detail = (req, res) => {
+module.exports.detail = async (req, res) => {
+  const id = req.params.id;
+  const find = {
+    deleted: false,
+  };
+
+  const category = await ProductsCategory.findOne(
+    {
+      _id: id,
+    },
+    find
+  );
+
+  // Get title categpry parent
+  if (category.parent_id) {
+    const id = category.parent_id;
+    const categorys = await ProductsCategory.findOne(
+      { _id: id },
+      { deleted: false }
+    );
+    if (categorys.title) {
+      category.nameCategoryParent = categorys.title;
+    }
+  }
+  // End get title categpry parent
+
   res.render("admin/pages/products-category/detail.pug", {
-    pageTitle: "Chi tiết danh mục",
+    category: category,
   });
 };
 
@@ -230,4 +255,12 @@ module.exports.editPatch = async (req, res) => {
     req.flash("error", "Cập nhật sản phẩm thất bại");
     res.redirect(`${systemConfig.prefixAdmin}/products-category`);
   }
+};
+
+// [DELETE] admin/products-category/delete/:id
+module.exports.delete = async (req, res) => {
+  const id = req.params.id;
+  await ProductsCategory.updateOne({ _id: id }, { deleted: true });
+
+  res.redirect("back");
 };
