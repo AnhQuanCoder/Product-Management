@@ -3,7 +3,7 @@ const generateStringHelper = require("../helper/generate.js");
 
 const accountSchema = new mongoose.Schema(
   {
-    fullname: String,
+    fullName: String,
     email: String,
     password: String,
     token: {
