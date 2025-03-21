@@ -25,7 +25,7 @@ module.exports.create = (req, res) => {
 module.exports.createPost = async (req, res) => {
   const role = new Role(req.body);
   await role.save();
-  req.flash("success", "Tạo sản phẩm thành công");
+  req.flash("success", "Tạo quyền thành công");
   res.redirect(`${systemConfig.prefixAdmin}/roles`);
 };
 
@@ -59,7 +59,7 @@ module.exports.editPatch = async (req, res) => {
   }
 };
 
-// [GET] admin/detail/get/:id
+// [GET] admin/roles/detail/get/:id
 module.exports.detail = async (req, res) => {
   const id = req.params.id;
 
@@ -78,7 +78,7 @@ module.exports.detail = async (req, res) => {
   }
 };
 
-// [DELETE] admin/delete/get/:id
+// [DELETE] admin/roles/delete/get/:id
 module.exports.delete = async (req, res) => {
   const id = req.params.id;
 
@@ -86,4 +86,37 @@ module.exports.delete = async (req, res) => {
 
   req.flash("success", "Xóa quyền thành công");
   res.redirect("back");
+};
+
+// [GET] admin/roles/permissions
+module.exports.permissions = async (req, res) => {
+  let find = { deleted: false };
+  const records = await Role.find(find);
+
+  res.render("admin/pages/roles/permissions.pug", {
+    pageTitle: "Thiết lập phân quyền",
+    records: records,
+  });
+};
+
+// [PATCH] admin/roles/permissions
+module.exports.permissionsPatch = async (req, res) => {
+  try {
+    const permissions = JSON.parse(req.body.permissions);
+
+    for (const item of permissions) {
+      console.log(item.id);
+      console.log(item.permissions);
+      await Role.updateOne(
+        { _id: item.id },
+        { permisstions: item.permissions }
+      );
+    }
+
+    req.flash("success", "Cập nhật danh sách quyền thành công");
+    res.redirect("back");
+  } catch (error) {
+    req.flash("error", "Cập nhật danh sách quyền thất bại");
+    res.redirect("back");
+  }
 };
