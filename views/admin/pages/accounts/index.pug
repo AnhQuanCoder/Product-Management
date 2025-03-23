@@ -1,17 +1,38 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 include ../../mixins/change-multi.pug
+include ../../mixins/filter-status.pug
+include ../../mixins/search.pug
+include ../../mixins/sort.pug
+include ../../mixins/pagination.pug
 
 block main 
     +alert-success(5000)
     h1(class="mb-4") #{pageTitle}
 
     .card.mb-3 
+            .card-header Bộ lọc và Tìm kiếm 
+            .card-body 
+                .row 
+                    .col-6 
+                        +filter-status(filterStatus)
+
+                    .col-6 
+                        +search(keyword)
+
+    .card.mb-3 
+        .card-header Sắp xếp 
+        .card-body 
+            .row 
+                .col-4 
+                    +sort-accounts()
+
+    .card.mb-3 
         .card-header Danh sách 
         .card-body 
             .row 
                 .col-8
-                    +form-change-multi(`${prefixAdmin}/acccounts/change-multi?_method=PATCH`)
+                    +form-change-multi-accounts(`${prefixAdmin}/accounts/change-multi?_method=PATCH`)
 
                 .col-4.text-right
                     a(
@@ -84,6 +105,9 @@ block main
                         href=`${prefixAdmin}/roles/create`
                         class="btn btn-secondary"
                     ) Tạo nhóm quyền
+
+    +pagination(pagination)
+
     form(
         action=""
         method="POST"

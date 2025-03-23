@@ -33,3 +33,18 @@ mixin sort-products-category()
             class="btn btn-danger mt-2"
             sort-clear
         ) Clear
+
+mixin sort-accounts()
+    div(sort) 
+        select(
+            class="form-control"
+            name="sort"
+            sort-select
+        ) 
+            option(value="fullName-desc") Họ tên A - Z
+            option(value="fullName-asc") Họ tên Z - A
+
+        button(
+            class="btn btn-danger mt-2"
+            sort-clear
+        ) Clear

@@ -2,21 +2,69 @@ const Account = require("../../models/account.model");
 const Role = require("../../models/role.model");
 const md5 = require("md5");
 
+const filterStatusHelper = require("../../helper/filterStatus");
+const searchHelper = require("../../helper/search");
+const paginationHelper = require("../../helper/pagination");
+
 const systemConfig = require("../../config/system");
 
 // [GET] admin/accounts
 module.exports.index = async (req, res) => {
+  // Filter
+  const filterStatus = filterStatusHelper(req.query);
+
   const find = { deleted: false };
-  const records = await Account.find(find).select("-password -token");
+
+  if (req.query.status) {
+    find.status = req.query.status;
+  }
+
+  // Search tìm kiếm sản phẩm
+  let objectSearch = searchHelper(req.query);
+  if (objectSearch.regex) {
+    find.fullName = objectSearch.regex;
+  }
+
+  // Pagination
+  const countAccounts = await Account.countDocuments(find);
+  let objectPagination = paginationHelper(
+    {
+      currentPage: 1,
+      limitItems: 4,
+    },
+    countAccounts,
+    req.query
+  );
+
+  // Sort
+  let sort = {};
+  if (req.query.sortKey && req.query.sortValue) {
+    sort[req.query.sortKey] = req.query.sortValue;
+  } else {
+    sort.fullName = "desc";
+  }
+  // End sort
+
+  const records = await Account.find(find)
+    .select("-password -token")
+    .sort(sort)
+    .limit(objectPagination.limitItems)
+    .skip(objectPagination.skip);
 
   for (const record of records) {
-    const role = await Role.findOne({ _id: record.role_id, deleted: false });
+    const role = await Role.findOne({
+      _id: record.role_id,
+      deleted: false,
+    });
     record.role = role;
   }
 
   res.render("admin/pages/accounts/index.pug", {
     pageTitle: "Danh sách tài khoản",
     records: records,
+    filterStatus: filterStatus,
+    keyword: objectSearch.keyword,
+    pagination: objectPagination,
   });
 };
 
@@ -131,6 +179,35 @@ module.exports.changeStatus = async (req, res) => {
     { _id: req.params.id },
     { status: req.params.status }
   );
+  req.flash("success", "Thay đổi trạng thái thành công");
+  res.redirect("back");
+};
+
+// [PATCH] admin/accounts/change-multi
+module.exports.changeMulti = async (req, res) => {
+  const type = req.body.type;
+  const ids = req.body.ids.split(", ");
+
+  switch (type) {
+    case "active":
+      await Account.updateMany(
+        { _id: { $in: ids } }, // Điều kiện: _id nằm trong mảng ids
+        { status: "active" }
+      );
+      break;
+    case "inactive":
+      await Account.updateMany(
+        { _id: { $in: ids } }, // Điều kiện: _id nằm trong mảng ids
+        { status: "inactive" }
+      );
+      break;
+    case "delete-all":
+      await Account.updateMany(
+        { _id: { $in: ids } }, // Điều kiện: _id nằm trong mảng ids
+        { deleted: true }
+      );
+      break;
+  }
   req.flash("success", "Thay đổi trạng thái thành công");
   res.redirect("back");
 };
