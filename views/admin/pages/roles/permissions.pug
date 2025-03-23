@@ -14,7 +14,7 @@ block main
         ) Cập nhật
 
     
-    if (records) 
+    if (records.length > 0) 
         div(data-permissions=records)
 
         table(
@@ -124,6 +124,14 @@ block main
                     each item in records 
                         td(class="text-center")
                             input(type="checkbox")
+        
+    else
+        p Hiện chưa có nhóm quyền nào được tạo hãy tạo mới
+        p 
+            a(
+                href=`${prefixAdmin}/roles/create`
+                class="btn btn-secondary"
+            ) Tạo nhóm quyền
 
     form(
         id="form-change-permissions"

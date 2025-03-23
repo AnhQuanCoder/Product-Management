@@ -20,4 +20,20 @@ router.post(
   controller.createPost
 );
 
+router.get("/edit/:id", controller.edit);
+
+router.patch(
+  "/edit/:id",
+  upload.single("avatar"),
+  uploadCloud.upload,
+  accountValidate.editPost,
+  controller.editPatch
+);
+
+router.get("/detail/:id", controller.detail);
+
+router.patch("/change-status/:id/:status", controller.changeStatus);
+
+router.delete("/delete/:id", controller.deleteItem);
+
 module.exports = router;

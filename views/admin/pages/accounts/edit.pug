@@ -8,7 +8,7 @@ block main
     +alert-error(5000)
 
     form(
-        action=`${prefixAdmin}/accounts/create`
+        action=`${prefixAdmin}/accounts/edit/${data.id}?_method=PATCH`
         method="POST"
         enctype="multipart/form-data"
     )
@@ -19,6 +19,7 @@ block main
                 class="form-control"
                 id="fullName"
                 name="fullName"
+                value=data.fullName
                 require
             )
         div(class="form-group")
@@ -28,6 +29,7 @@ block main
                 class="form-control"
                 id="email"
                 name="email"
+                value=data.email
                 require
             )
         div(class="form-group")
@@ -46,6 +48,7 @@ block main
                 class="form-control"
                 id="phone"
                 name="phone"
+                value=data.phone
                 require
             )
             
@@ -64,19 +67,21 @@ block main
             )
             div(class="image-container")
                 img(
-                    src=""
+                    src=data.avatar == "" ? "" : data.avatar
                     upload-image-preview
                     class="image-preview"
                 )
                 span(class="close-image d-none" close-image) X
-
 
         div(class="form-group")
             lable(for="role_id") Phân quyền 
             select(name="role_id" id="role_id" class="form-control")
                 option(disable) -- Chọn --
                 each item in roles
-                    option(value=item.id) #{item.title}
+                    option(
+                        value=item.id
+                        selected=(item.id == data.role_id ? true : false)
+                    ) #{item.title}
         
         div(class="form-group form-check form-check-inline")
             input(
@@ -103,5 +108,5 @@ block main
             button(
                 type="submit"
                 class="btn btn-primary"
-            )   Tạo mới
+            ) Thay đổi
             

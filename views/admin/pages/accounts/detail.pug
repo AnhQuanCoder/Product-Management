@@ -1,0 +1,35 @@
+extend ../../layouts/default.pug
+
+block main 
+    if (record.role.title)
+        h1(class="mb-4") #{record.role.title}
+
+    if (record.fullName)
+        div(class="mb-4") Họ và tên: <b> #{record.fullName} </b>
+
+    if (record.phone)
+        div(class="mb-4") Số điện thoại: <b> #{record.phone} </b>
+
+    if (record.email)
+        div(class="mb-4") Email: <b> #{record.email} </b>
+
+    if (record.avatar)
+        div(class="mb-4")
+            img(
+                src=record.avatar
+                style="width: 100px"
+            )
+            
+    if (record.status)
+        div(class="mb-4")
+            span Trạng thái: 
+            if (record.status == "active")
+                span(class="badge badge-success") Hoạt động
+            else
+                span(class="badge badge-danger") Dừng hoạt động
+
+    if (record.role.description)
+        div(class="mb-4") Mô tả quyền: <b>!{record.role.description}</b>
+
+    a(href=`${prefixAdmin}/accounts/edit/${record.id}` class="btn btn-warning btn-sm mr-1") Sửa tài khoản
+    
