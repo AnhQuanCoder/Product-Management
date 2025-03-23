@@ -10,6 +10,13 @@ module.exports.login = (req, res) => {
   });
 };
 
+// [GET] /admin/auth/logout
+module.exports.logout = (req, res) => {
+  // Xóa token trong cookie
+  res.clearCookie("token");
+  res.redirect(`${systemConfix.prefixAdmin}/auth/login`);
+};
+
 // [POST] /admin/auth/login
 module.exports.loginPost = async (req, res) => {
   const email = req.body.email;
