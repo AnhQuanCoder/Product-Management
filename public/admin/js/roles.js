@@ -85,7 +85,7 @@ if (dataPermissions) {
   const tablePermission = document.querySelector("[table-permissions]");
 
   dataRecord.forEach((item, index) => {
-    const permissions = item.permisstions;
+    const permissions = item.permissions;
 
     permissions.forEach((permission) => {
       const row = tablePermission.querySelector(`[data-name=${permission}]`);
