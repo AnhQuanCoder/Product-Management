@@ -5,9 +5,14 @@ const systemConfix = require("../../config/system");
 
 // [GET] /admin/auth/login
 module.exports.login = (req, res) => {
-  res.render("admin/pages/auth/login", {
-    pageTitle: "Đăng nhập",
-  });
+  const token = req.cookies.token;
+  if (!token) {
+    res.render("admin/pages/auth/login", {
+      pageTitle: "Đăng nhập",
+    });
+  } else {
+    res.redirect(`${systemConfix.prefixAdmin}/dashboard`);
+  }
 };
 
 // [GET] /admin/auth/logout
