@@ -116,7 +116,10 @@ module.exports.changeMulti = async (req, res) => {
         { _id: { $in: ids } }, // Điều kiện: _id nằm trong mảng ids
         {
           deleted: true,
-          deletedAt: new Date(),
+          deletedBy: {
+            account_id: res.locals.user.id,
+            deletedAt: new Date(),
+          },
         }
       );
       req.flash("success", `Xóa ${ids.length} sản phẩm thành công !`);
@@ -146,7 +149,13 @@ module.exports.deleteItem = async (req, res) => {
   // await Product.deleteOne({_id: id});
   await Product.updateOne(
     { _id: id },
-    { deleted: true, deletedAt: new Date() }
+    {
+      deleted: true,
+      deletedBy: {
+        account_id: res.locals.user.id,
+        deletedAt: new Date(),
+      },
+    }
   );
   res.redirect("back");
 };
