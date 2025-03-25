@@ -5,6 +5,7 @@ include ../../mixins/pagination.pug
 include ../../mixins/change-multi.pug
 include ../../mixins/alert.pug
 include ../../mixins/sort.pug
+include ../../mixins/moment.pug
 
 block main
     if (role.permissions.includes("products_view"))
@@ -58,6 +59,7 @@ block main
                                 th Giá
                                 th Vị trí
                                 th Trạng thái
+                                th Người tạo
                                 th Hành động
 
                         tbody 
@@ -114,6 +116,11 @@ block main
                                                     data-id=item.id 
                                                     data-status=item.status
                                                 ) Dừng hoạt động
+
+                                    td 
+                                        p #{item.accountFullname}
+                                        p 
+                                            +formatDate(item.createdBy.createdAt)
 
                                     td 
                                         a(href=`${prefixAdmin}/products/detail/${item.id}` class="btn btn-secondary btn-sm mr-1") Chi tiết 
