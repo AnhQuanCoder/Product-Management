@@ -31,5 +31,6 @@ block main
     if (record.role.description)
         div(class="mb-4") Mô tả quyền: <b>!{record.role.description}</b>
 
-    a(href=`${prefixAdmin}/accounts/edit/${record.id}` class="btn btn-warning btn-sm mr-1") Sửa tài khoản
+    if (role.permissions.includes("accounts_edit"))
+        a(href=`${prefixAdmin}/accounts/edit/${record.id}` class="btn btn-warning btn-sm mr-1") Sửa tài khoản
     

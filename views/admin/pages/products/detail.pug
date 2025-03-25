@@ -37,7 +37,8 @@ block main
     if (product.description)
         div(class="mb-4") Mô tả: !{product.description}
 
-    a(href=`${prefixAdmin}/products/edit/${product.id}` class="btn btn-warning btn-sm mr-1") Sửa sản phẩm 
+    if (role.permissions.includes("products_edit"))
+        a(href=`${prefixAdmin}/products/edit/${product.id}` class="btn btn-warning btn-sm mr-1") Sửa sản phẩm 
     
 
     script(src="/admin/js/product.js") 

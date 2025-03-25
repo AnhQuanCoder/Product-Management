@@ -28,7 +28,8 @@ block main
     if (category.description)
         div(class="mb-4") Mô tả: !{category.description}
 
-    a(href=`${prefixAdmin}/products-category/edit/${category.id}` class="btn btn-warning btn-sm mr-1") Sửa danh mục
+    if (role.permissions.includes("products-category_edit"))
+        a(href=`${prefixAdmin}/products-category/edit/${category.id}` class="btn btn-warning btn-sm mr-1") Sửa danh mục
     
 
     script(src="/admin/js/product.js") 
