@@ -5,6 +5,7 @@ if (buttonStatus.length > 0) {
 
   buttonStatus.forEach((button) => {
     button.addEventListener("click", () => {
+      console.log(button);
       const status = button.getAttribute("button-status");
 
       if (status) {
