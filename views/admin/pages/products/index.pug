@@ -60,6 +60,7 @@ block main
                                 th Vị trí
                                 th Trạng thái
                                 th Người tạo
+                                th Người cập nhật
                                 th Hành động
 
                         tbody 
@@ -118,9 +119,14 @@ block main
                                                 ) Dừng hoạt động
 
                                     td 
-                                        p #{item.accountFullname}
+                                        p #{item.accountFullnameCreate}
                                         p 
                                             +formatDate(item.createdBy.createdAt)
+                                            
+                                    td 
+                                        p #{item.accountFullnameUpdate}
+                                        p 
+                                            +formatDate(item.updatedBy.updatedAt)
 
                                     td 
                                         a(href=`${prefixAdmin}/products/detail/${item.id}` class="btn btn-secondary btn-sm mr-1") Chi tiết 
