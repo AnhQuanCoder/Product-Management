@@ -36,7 +36,29 @@ block main
                     ) 
                         option(value="") -- Chọn danh mục --
                         if (categorys)
-                            +select-tree(categorys, 1, product.products_category_id) 
+                            +select-tree(categorys, 1, product.products_category_id)
+
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="featured1"
+                    name="featured"
+                    value="1"
+                    checked = (product.featured == "1" ? true : false)
+                )
+                label(for="featured1" class="form-check-lable mb-0") Nổi bật
+
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="featured0"
+                    name="featured"
+                    value="0"
+                    checked = (product.featured == "0" ? true : false)
+                )
+                label(for="featured0" class="form-check-lable mb-0") Không nổi bật
 
             div(class="form-group")
             label(for="desc") Mô tả
