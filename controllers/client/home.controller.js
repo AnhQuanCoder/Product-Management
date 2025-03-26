@@ -11,13 +11,25 @@ module.exports.index = async (req, res) => {
     status: "active",
   };
   const productsFreatured = await Product.find(find);
+
+  const newProductsFreatured =
+    productsHelper.priceNewProduct(productsFreatured);
   // End get featured products
 
-  // Dùng priceNewProduct để tính giá mới
-  const newProducts = productsHelper.priceNewProduct(productsFreatured);
+  // Get list products new (Lấy ra danh sách sản phẩm mới nhất)
+  const productsNew = await Product.find({
+    deleted: false,
+    status: "active",
+  })
+    .limit(6)
+    .sort({ position: "desc" });
+
+  const newProductsNew = productsHelper.priceNewProduct(productsNew);
+  // Get list products new
 
   res.render("client/pages/home/index.pug", {
     pageTitle: "Trang chủ",
-    productsFreatured: newProducts,
+    productsFreatured: newProductsFreatured,
+    productsNew: newProductsNew,
   });
 };
