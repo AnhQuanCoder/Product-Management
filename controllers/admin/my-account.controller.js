@@ -40,7 +40,6 @@ module.exports.editPatch = async (req, res) => {
     }
 
     await Account.updateOne({ _id: id }, req.body);
-    console.log(req.body);
     req.flash("success", "Thay đổi thành công");
   }
 
