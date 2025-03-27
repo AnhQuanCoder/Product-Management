@@ -1,6 +1,6 @@
 const Product = require("../../models/product.model");
 
-const productsHelper = require("../../helper/product");
+const productHelper = require("../../helper/product");
 
 // [GET] /home
 module.exports.index = async (req, res) => {
@@ -13,7 +13,7 @@ module.exports.index = async (req, res) => {
   const productsFreatured = await Product.find(find);
 
   const newProductsFreatured =
-    productsHelper.priceNewProduct(productsFreatured);
+    productHelper.priceNewProducts(productsFreatured);
   // End get featured products
 
   // Get list products new (Lấy ra danh sách sản phẩm mới nhất)
@@ -24,7 +24,7 @@ module.exports.index = async (req, res) => {
     .limit(6)
     .sort({ position: "desc" });
 
-  const newProductsNew = productsHelper.priceNewProduct(productsNew);
+  const newProductsNew = productHelper.priceNewProducts(productsNew);
   // Get list products new
 
   res.render("client/pages/home/index.pug", {

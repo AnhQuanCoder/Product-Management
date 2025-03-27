@@ -1,7 +1,7 @@
 const Product = require("../../models/product.model");
 const ProductCategory = require("../../models/products-category.model");
 
-const productsHelper = require("../../helper/product");
+const productHelper = require("../../helper/product");
 const productsCategoryHelper = require("../../helper/products-category");
 
 // [GET] /products
@@ -13,7 +13,7 @@ module.exports.index = async (req, res) => {
   }).sort({ position: "desc" });
 
   // Dùng forEach để thêm 1 thuộc tính mới
-  const productsNew = productsHelper.priceNewProduct(products);
+  const productsNew = productHelper.priceNewProducts(products);
 
   res.render("client/pages/products/index.pug", {
     pageTitle: "Danh sách sản phẩm",
@@ -21,16 +21,28 @@ module.exports.index = async (req, res) => {
   });
 };
 
-// [GET] /products/:slug
+// [GET] /products/detail/:slugProduct
 module.exports.detail = async (req, res) => {
   try {
     const find = {
       deleted: false,
-      slug: req.params.slug,
+      slug: req.params.slugProduct,
       status: "active",
     };
 
     const product = await Product.findOne(find);
+
+    if (product.products_category_id) {
+      const category = await ProductCategory.findOne({
+        _id: product.products_category_id,
+        status: "active",
+        deleted: false,
+      });
+
+      product.category = category;
+    }
+
+    product.priceNew = productHelper.priceNewProduct(product);
 
     res.render("client/pages/products/detail.pug", {
       product,
@@ -62,7 +74,7 @@ module.exports.category = async (req, res) => {
       status: "active",
     }).sort({ position: "desc" });
 
-    const productsNew = productsHelper.priceNewProduct(product);
+    const productsNew = productHelper.priceNewProducts(product);
 
     res.render("client/pages/products/index.pug", {
       pageTitle: category.title,
