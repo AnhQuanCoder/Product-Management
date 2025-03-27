@@ -24,17 +24,6 @@ module.exports.index = async (req, res) => {
   }
   // End search
 
-  // Pagination
-  const countProductsCategory = await ProductsCategory.countDocuments(find);
-  let objectPagination = paginationHelper(
-    {
-      currentPage: 1,
-      limitItems: 4,
-    },
-    countProductsCategory,
-    req.query
-  );
-
   // Sort
   const sort = {};
   if (req.query.sortKey && req.query.sortValue) {
@@ -60,10 +49,7 @@ module.exports.index = async (req, res) => {
     return tree;
   }
 
-  const records = await ProductsCategory.find(find)
-    .sort(sort)
-    .limit(objectPagination.limitItems)
-    .skip(objectPagination.skip);
+  const records = await ProductsCategory.find(find).sort(sort);
 
   const newRecords = createTree(records);
 
@@ -72,7 +58,6 @@ module.exports.index = async (req, res) => {
     records: newRecords,
     filterStatus: filterStatus,
     keyword: objectSearch.keyword,
-    pagination: objectPagination,
   });
 };
 

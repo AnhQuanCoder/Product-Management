@@ -4,7 +4,6 @@ include ../../mixins/search.pug
 include ../../mixins/sort.pug
 include ../../mixins/change-multi.pug
 include ../../mixins/alert.pug
-include ../../mixins/pagination.pug
 include ../../mixins/table-tree.pug
 
 block main
@@ -62,8 +61,6 @@ block main
 
                         tbody 
                             +table-tree(records)
-
-        +pagination(pagination)
 
         form(
             action=""
