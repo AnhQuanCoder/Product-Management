@@ -14,7 +14,7 @@ block main
 
                     if (product.category)
                         div(class="inner-category")
-                            span Danh mục 
+                            span Danh mục >
                             a(href=`/products/${product.category.slug}`) #{product.category.title} 
 
                     if (product.priceNew)
@@ -35,11 +35,11 @@ block main
                     )   
                         input(
                             class="form-control mb-2"
-                            input-quantity
                             type="number"
                             name="quantity"
                             value="1"
                             min="1"
+                            max=product.stock 
                         )
                         button(
                             type="submit"
