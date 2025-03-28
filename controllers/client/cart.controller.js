@@ -17,6 +17,7 @@ module.exports.index = async (req, res) => {
       productInfo.priceNew = productHelper.priceNewProduct(item.productInfo);
 
       item.totalPrice = item.quantity * productInfo.priceNew;
+      item.stock = productInfo.stock;
     }
   }
 
