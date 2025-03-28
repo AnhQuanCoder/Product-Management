@@ -67,3 +67,17 @@ module.exports.addPost = async (req, res) => {
 
   res.redirect("back");
 };
+
+// [GET] /cart/get/:productId
+module.exports.delete = async (req, res) => {
+  const cartId = req.cookies.cartId;
+  const productId = req.params.productId;
+
+  await Cart.updateOne(
+    { _id: cartId },
+    { $pull: { products: { product_id: productId } } }
+  );
+  req.flash("success", "Xóa sản phẩm khỏi giỏ hàng thành công");
+
+  res.redirect("back");
+};
