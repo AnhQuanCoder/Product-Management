@@ -9,21 +9,13 @@ block main
         .row.justify-content-center 
             .col-8
                 h1(class="text-center") #{pageTitle}
+
                 form(
-                    action="/user/login"
+                    action="/user/password/reset"
                     method="POST"
                 )
                     div(class="form-group")
-                        label(for="email") Email
-                        input(
-                            type="email"
-                            class="form-control"
-                            id="email"
-                            name="email"
-                            require
-                        )
-                    div(class="form-group")
-                        label(for="password") Mật khẩu
+                        label(for="password") Mật khẩu mới
                         input(
                             type="password"
                             class="form-control"
@@ -32,12 +24,17 @@ block main
                             require
                         )
                     div(class="form-group")
+                        label(for="confirmPassword") Xác nhận mật khẩu
+                        input(
+                            type="password"
+                            class="form-control"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            require
+                        )
+                    div(class="form-group")
                         button(
                             type="submit"
                             class="form-control"
-                            class="btn btn-success"
-                        ) Đăng nhập
-            
-                a(href=`/user/password/forgot`) Quên mật khẩu?
-
-                    
+                            class="btn btn-success btn-block"
+                        ) Đổi mật khẩu

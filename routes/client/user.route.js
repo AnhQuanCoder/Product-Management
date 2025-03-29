@@ -17,6 +17,14 @@ router.get("/logout", controller.logout);
 
 router.get("/password/forgot", controller.forgot);
 
+router.get("/password/reset", controller.resetPassword);
+
+router.post(
+  "/password/reset",
+  userValidate.resetPasswordPost,
+  controller.resetPasswordPost
+);
+
 router.post(
   "/password/forgot",
   userValidate.forgotPasswordPost,
