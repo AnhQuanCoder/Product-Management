@@ -15,4 +15,16 @@ router.post("/login", userValidate.loginPost, controller.loginPost);
 
 router.get("/logout", controller.logout);
 
+router.get("/password/forgot", controller.forgot);
+
+router.post(
+  "/password/forgot",
+  userValidate.forgotPasswordPost,
+  controller.forgotPost
+);
+
+router.get("/password/otp", controller.otpPassword);
+
+router.post("/password/otp", controller.otpPasswordPost);
+
 module.exports = router;
