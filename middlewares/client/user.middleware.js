@@ -8,7 +8,7 @@ module.exports.infoUser = async (req, res, next) => {
     }).select("-password");
 
     if (user) {
-      res.local.user = user;
+      res.locals.user = user;
     }
   }
 
