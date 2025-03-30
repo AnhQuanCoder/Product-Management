@@ -154,6 +154,34 @@ block main
                         each item in records 
                             td(class="text-center")
                                 input(type="checkbox")
+                    //- Cài đặt chung
+                    tr 
+                        td(colspan="4")
+                            b Cài đặt chung
+
+                    tr(data-name="settings-generate_view") 
+                        td Xem
+                        each item in records 
+                            td(class="text-center")
+                                input(type="checkbox")
+
+                    tr(data-name="settings-generate_create") 
+                        td Thêm mới
+                        each item in records 
+                            td(class="text-center")
+                                input(type="checkbox")
+
+                    tr(data-name="settings-generate_edit") 
+                        td Chỉnh sửa
+                        each item in records 
+                            td(class="text-center")
+                                input(type="checkbox")
+
+                    tr(data-name="settings-generate_delete") 
+                        td Xóa
+                        each item in records 
+                            td(class="text-center")
+                                input(type="checkbox")
             
         else
             p Hiện chưa có nhóm quyền nào được tạo hãy tạo mới

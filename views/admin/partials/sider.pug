@@ -23,3 +23,7 @@
             if (role.permissions.includes("accounts_view"))
                 li 
                     a(href=`${prefixAdmin}/accounts`) Danh sách tài khoản
+
+            if (role.permissions.includes("settings-generate_view"))
+                li 
+                    a(href=`${prefixAdmin}/settings/general`) Cài đặt chung
