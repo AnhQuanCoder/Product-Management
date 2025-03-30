@@ -50,6 +50,12 @@ app.use(express.static(`${__dirname}/public`));
 // Route
 route(app);
 routeAdmin(app);
+// Các trường hợp lỗi còn lại vào trang 404
+app.get("*", (req, res) => {
+  res.render("client/pages/errors/404", {
+    pageTitle: "40 Not Found",
+  });
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
