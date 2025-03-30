@@ -1,5 +1,6 @@
 const User = require("../../models/user.model");
 const PorgotPassword = require("../../models/forgot-password.model");
+const Cart = require("../../models/cart.model");
 const md5 = require("md5");
 
 const generateHelper = require("../../helper/generate");
@@ -71,6 +72,9 @@ module.exports.loginPost = async (req, res) => {
   }
 
   res.cookie("tokenUser", user.tokenUser);
+
+  // Khi đăng nhập thành công lưu user_id vào collection carts
+  await Cart.updateOne({ _id: req.cookies.cartId }, { user_id: user.id });
 
   res.redirect(`/`);
 };
@@ -169,6 +173,14 @@ module.exports.resetPasswordPost = async (req, res) => {
 };
 
 // [GET] /user/info
-module.exports.info = (req, res) => {
-  res.render("client/pages/user/info", { pageTitle: "Thông tin tài khoản" });
+module.exports.info = async (req, res) => {
+  const user = await User.findOne({
+    tokenUser: req.cookies.tokenUser,
+    deleted: false,
+  }).select("-password");
+
+  res.render("client/pages/user/info", {
+    pageTitle: "Thông tin tài khoản",
+    user: user,
+  });
 };
