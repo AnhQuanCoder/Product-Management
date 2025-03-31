@@ -16,7 +16,7 @@ block main
         each item in records
             .col-12
                 .card.mb-4
-                    .card-header Mã đơn hàng: #{item.cart_id}
+                    .card-header Mã đơn hàng: <b>#{item.id}</b>
                     .card-body
                         table(
                             class="table table-hover table-sm"
@@ -38,15 +38,26 @@ block main
                                         td
                                             img(src=subItem.thumbnail alt=subItem.title width="80px" style="object-fit: cover;")
                                         td #{subItem.title}
-                                        td #{subItem.quantity}
+                                        td x#{subItem.quantity}
                                         td #{subItem.discountPercentage}%
                                         td #{subItem.price}$
                                         td <b>#{subItem.priceNew}$</b>
 
+                        p(style="text-align: end;") Tổng tiền: <b>#{item.totalPrice}$</b>
+                        
                         div(style="text-align: end;")
-                            span(class="btn btn-primary mr-1") Thông tin đơn hàng
-                            span(class="btn btn-success mr-1") Chấp nhận đơn hàng
-                            span(class="btn btn-danger") Xóa đơn hàng
+                            a(href=`${prefixAdmin}/order-management/detail/${item.id}` class="btn btn-primary mr-1") Thông tin đơn hàng
+                            a(href=`${prefixAdmin}/order-management/accept/${item.id}` class="btn btn-success mr-1") Chấp nhận đơn hàng
+                            a(href=`javascript:` data-id=item.id class="btn btn-danger" button-delete) Xóa đơn hàng
 
+        form(
+            action=""
+            method="POST"
+            id="form-delete-item"
+            data-path=`${prefixAdmin}/order-management/delete`
+        ) 
+
+        script(src="/admin/js/order-management.js") 
+    
     else    
         h1 Bạn không được cấp quyền làm tính năng này 
