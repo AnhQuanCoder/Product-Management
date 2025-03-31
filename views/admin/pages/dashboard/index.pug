@@ -50,3 +50,11 @@ block main
                     p Số lượng: <b>#{statistic.user.total}</b>
                     p Hoạt động: <b>#{statistic.user.active}</b>
                     p Dừng hoạt động: <b>#{statistic.user.inactive}</b>
+
+        .col-6 
+            .card.mb-4
+                .card-header Quản lý đơn hàng
+                .card-body 
+                    p Số lượng đơn hàng: <b>#{statistic.order.total}</b>
+                    p Số lượng đơn đã được duyệt: <b>#{statistic.order.active}</b>
+                    p Số lượng đơn đã chưa duyệt: <b>#{statistic.order.inactive}</b>

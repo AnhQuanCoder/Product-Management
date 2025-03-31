@@ -2,6 +2,8 @@ const ProductCategory = require("../../models/products-category.model");
 const Product = require("../../models/product.model");
 const Account = require("../../models/account.model");
 const User = require("../../models/user.model");
+const Order = require("../../models/order.model");
+const Role = require("../../models/role.model");
 
 // [GET] /admin/dashboard
 module.exports.index = async (req, res) => {
@@ -22,6 +24,11 @@ module.exports.index = async (req, res) => {
       inactive: 0,
     },
     user: {
+      total: 0,
+      active: 0,
+      inactive: 0,
+    },
+    order: {
       total: 0,
       active: 0,
       inactive: 0,
@@ -77,6 +84,19 @@ module.exports.index = async (req, res) => {
   });
   statistic.user.inactive = await User.countDocuments({
     status: "inactive",
+    deleted: false,
+  });
+
+  //   Order
+  statistic.order.total = await Order.countDocuments({
+    deleted: false,
+  });
+  statistic.order.active = await Order.countDocuments({
+    isOrderCheck: true,
+    deleted: false,
+  });
+  statistic.order.inactive = await Order.countDocuments({
+    isOrderCheck: false,
     deleted: false,
   });
 
