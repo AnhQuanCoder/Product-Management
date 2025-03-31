@@ -53,7 +53,7 @@ routeAdmin(app);
 // Các trường hợp lỗi còn lại vào trang 404
 app.get("*", (req, res) => {
   res.render("client/pages/errors/404", {
-    pageTitle: "40 Not Found",
+    pageTitle: "404 Not Found",
   });
 });
 

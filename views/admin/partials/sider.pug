@@ -24,6 +24,10 @@
                 li 
                     a(href=`${prefixAdmin}/accounts`) Danh sách tài khoản
 
+            if (role.permissions.includes("order-management_view"))
+                li 
+                    a(href=`${prefixAdmin}/order-management`) Quản lý đơn hàng 
+
             if (role.permissions.includes("settings-generate_view"))
                 li 
                     a(href=`${prefixAdmin}/settings/general`) Cài đặt chung

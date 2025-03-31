@@ -15,6 +15,10 @@ const orderSchema = new mongoose.Schema({
       quantity: Number,
     },
   ],
+  isOrderCheck: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Order = mongoose.model("Order", orderSchema, "orders");

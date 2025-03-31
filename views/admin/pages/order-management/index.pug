@@ -1,0 +1,52 @@
+extends ../../layouts/default.pug
+include ../../mixins/filter-status.pug
+include ../../mixins/search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/change-multi.pug
+include ../../mixins/alert.pug
+include ../../mixins/sort.pug
+include ../../mixins/moment.pug
+
+block main
+    if (role.permissions.includes("order-management_view"))
+        +alert-success("5000")
+
+        h1 #{pageTitle}
+
+        each item in records
+            .col-12
+                .card.mb-4
+                    .card-header Mã đơn hàng: #{item.cart_id}
+                    .card-body
+                        table(
+                            class="table table-hover table-sm"
+                            check-box-multi
+                        )
+                            thead 
+                                tr 
+                                    th STT
+                                    th Hình ảnh
+                                    th Tiêu đề
+                                    th Số lượng
+                                    th Phần trăm giảm giá
+                                    th Giá cũ
+                                    th Giá mới
+                            tbody
+                                each subItem, index in item.products
+                                    tr
+                                        td #{index + 1}
+                                        td
+                                            img(src=subItem.thumbnail alt=subItem.title width="80px" style="object-fit: cover;")
+                                        td #{subItem.title}
+                                        td #{subItem.quantity}
+                                        td #{subItem.discountPercentage}%
+                                        td #{subItem.price}$
+                                        td <b>#{subItem.priceNew}$</b>
+
+                        div(style="text-align: end;")
+                            span(class="btn btn-primary mr-1") Thông tin đơn hàng
+                            span(class="btn btn-success mr-1") Chấp nhận đơn hàng
+                            span(class="btn btn-danger") Xóa đơn hàng
+
+    else    
+        h1 Bạn không được cấp quyền làm tính năng này 

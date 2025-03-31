@@ -182,6 +182,34 @@ block main
                         each item in records 
                             td(class="text-center")
                                 input(type="checkbox")
+                    //- Quản lý đơn hàng 
+                    tr 
+                        td(colspan="4")
+                            b Quản lý đơn hàng
+
+                    tr(data-name="order-management_view") 
+                        td Xem
+                        each item in records 
+                            td(class="text-center")
+                                input(type="checkbox")
+
+                    tr(data-name="order-management_create") 
+                        td Thêm mới
+                        each item in records 
+                            td(class="text-center")
+                                input(type="checkbox")
+
+                    tr(data-name="order-management_edit") 
+                        td Chỉnh sửa
+                        each item in records 
+                            td(class="text-center")
+                                input(type="checkbox")
+
+                    tr(data-name="order-management_delete") 
+                        td Xóa
+                        each item in records 
+                            td(class="text-center")
+                                input(type="checkbox")
             
         else
             p Hiện chưa có nhóm quyền nào được tạo hãy tạo mới
