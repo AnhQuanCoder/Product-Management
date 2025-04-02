@@ -30,13 +30,11 @@ database.connect();
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 
-// Socket.io
+// SocketIO
 const server = http.createServer(app);
 const io = new Server(server);
-io.on("connection", (socket) => {
-  console.log("a user connected: ", socket.id);
-});
-// End Socket.io
+global._io = io;
+// End SocketIO
 
 // Flash
 app.use(cookieParser("ANHQUANCODERBODOITHIENHA"));

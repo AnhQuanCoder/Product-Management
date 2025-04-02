@@ -8,7 +8,7 @@ header.header
                     a(href="/")
                         img(src=settingGeneral.logo, alt="Logo")
 
-            .col-4
+            .col-3
                 form(
                     action="/search"
                     method="GET"
@@ -27,7 +27,7 @@ header.header
                             class="btn btn-success ml-1"
                         ) Tìm
 
-            .col-6
+            .col-7
                 .inner-menu 
                     ul 
                         li 
@@ -39,6 +39,9 @@ header.header
                             +sub-menu(layoutProductsCategory, pathProduct)
                         li 
                             a(href="/cart") Giỏ hàng (#{miniCart ? miniCart.totalQuantity : "0"}) 
+                        li 
+                            a(href="/chat") Chat
+                        
                         if (user)
                             li 
                                 a(href="/user/info") #{user.fullName}
