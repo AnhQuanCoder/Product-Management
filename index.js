@@ -6,6 +6,8 @@ const flash = require("express-flash");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const moment = require("moment");
+const http = require("http");
+const { Server } = require("socket.io");
 const app = express();
 
 app.use(methodOverride("_method"));
@@ -27,6 +29,14 @@ database.connect();
 
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
+
+// Socket.io
+const server = http.createServer(app);
+const io = new Server(server);
+io.on("connection", (socket) => {
+  console.log("a user connected: ", socket.id);
+});
+// End Socket.io
 
 // Flash
 app.use(cookieParser("ANHQUANCODERBODOITHIENHA"));
@@ -57,6 +67,6 @@ app.get("*", (req, res) => {
   });
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
