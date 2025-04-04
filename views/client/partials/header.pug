@@ -39,10 +39,11 @@ header.header
                             +sub-menu(layoutProductsCategory, pathProduct)
                         li 
                             a(href="/cart") Giỏ hàng (#{miniCart ? miniCart.totalQuantity : "0"}) 
-                        li 
-                            a(href="/chat") Chat
                         
                         if (user)
+                            li 
+                                a(href="/chat") Chat
+
                             li 
                                 a(href="/user/info") #{user.fullName}
                                 a(href="/user/logout") Đăng xuất
