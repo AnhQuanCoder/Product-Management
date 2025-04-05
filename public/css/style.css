@@ -358,10 +358,30 @@
 
 .inner-foot input {
   flex: 9;
+  min-height: 40px; /* Chiều cao tối thiểu */
+  max-height: 150px; /* Chiều cao tối đa */
   padding: 10px;
   border: none;
   border-radius: 20px;
   outline: none;
+  resize: none; /* Không cho phép thay đổi kích thước bằng tay */
+  overflow-y: auto; /* Hiển thị thanh cuộn khi nội dung quá dài */
+  word-wrap: break-word; /* Tự động xuống dòng */
+  white-space: pre-wrap; /* Đảm bảo xuống dòng khi nhập nhiều */
+}
+
+/* Tạo thanh cuộn mỏng cho ô nhập */
+.inner-foot input::-webkit-scrollbar {
+  width: 6px;
+}
+
+.inner-foot input::-webkit-scrollbar-thumb {
+  background-color: #ff69b4;
+  border-radius: 10px;
+}
+
+.inner-foot input::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
 }
 
 .inner-foot button {
@@ -379,3 +399,13 @@
   cursor: pointer;
 }
 /* End chat */
+
+// Emoji picker
+.tooltip {
+  visibility: hidden;
+}
+.tooltip.shown {
+  visibility: visible;
+  opacity: 1;
+}
+// End emoji picker
