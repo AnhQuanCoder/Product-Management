@@ -287,6 +287,24 @@
   flex-direction: column;
   gap: 10px;
   padding: 10px;
+  max-height: 500px; /* Giới hạn chiều cao của khung chat */
+  overflow-y: auto; /* Cho phép cuộn khi nội dung quá dài */
+  scrollbar-width: thin; /* Làm thanh cuộn nhỏ hơn */
+  scrollbar-color: #ff69b4 #f0f0f0; /* Màu thanh cuộn */
+}
+
+/* Ẩn thanh cuộn trên Chrome, Edge, Safari */
+.inner-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.inner-body::-webkit-scrollbar-thumb {
+  background-color: #ff69b4;
+  border-radius: 10px;
+}
+
+.inner-body::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
 }
 
 .inner-incoming,
