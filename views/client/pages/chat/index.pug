@@ -20,6 +20,14 @@ block main
                                     .inner-name #{chat.infoUser.fullName}
                                 .inner-content
                                     | #{chat.content}
+                        div(class="inner-list-typing")
+
+                            //- div(class="box-typing")
+                            //-     div(class="inner-name") Lê Văn B
+                            //-     div(class="inner-dots")
+                            //-         span 
+                            //-         span 
+                            //-         span
 
                     .inner-foot
                         form(
@@ -40,5 +48,5 @@ block main
                                 i.fa-solid.fa-paper-plane
         
         div(class="tooltip" role="tooltip")
-            emoji-picker
+            emoji-picker(class="light")
                         

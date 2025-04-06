@@ -22,6 +22,14 @@ module.exports.index = async (req, res) => {
         content: content,
       });
     });
+
+    socket.on("CLIENT_SEND_TYPING", (type) => {
+      socket.broadcast.emit("SERVER_SEND_TYPING", {
+        userId: userId,
+        fullName: fullName,
+        type: type,
+      });
+    });
   });
 
   // Lấy data người gửi tin nhắn

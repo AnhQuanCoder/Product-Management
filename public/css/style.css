@@ -268,6 +268,11 @@
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* Message Styling */
@@ -409,3 +414,56 @@
   opacity: 1;
 }
 // End emoji picker
+
+/* Typing */
+.inner-list-typing {
+  margin-top: 10px;
+}
+
+.box-typing {
+  display: flex;
+  flex-direction: column; /* Để inner-dots nằm dưới inner-name */
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.inner-name {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.inner-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.inner-dots span {
+  width: 5px;
+  height: 5px;
+  background-color: #ff69b4; /* Màu hồng */
+  border-radius: 50%;
+  animation: blink 1.4s infinite;
+}
+
+.inner-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.inner-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0%,
+  80%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+}
+
+/* End Typing */
