@@ -97,5 +97,57 @@ module.exports = async (res) => {
         );
       }
     });
+
+    // Tính năng người dùng chấp nhận yêu cầu kết bạn
+    socket.on("CLIENT_ACCEPT_FRIEND", async (userId) => {
+      const myUserId = res.locals.user.id;
+
+      // console.log(myUserId); // id của ông B
+      // console.log(userId); // id của ông A
+
+      // Việc 1: Thêm {user_id, room_chat_id} của A vào friendList của B
+      // Việc 2: Xóa id của ông A trong acceptFriends của B
+      const existAInB = await User.findOne({
+        _id: myUserId,
+        acceptFriends: userId,
+      }); // Kiểm tra xem trong mảng acceptFriends của B có tồn tại ông A không
+
+      if (existAInB) {
+        await User.updateOne(
+          { _id: myUserId },
+          {
+            $push: {
+              friendList: {
+                user_id: userId,
+                room_chat_id: "",
+              },
+            },
+            $pull: { acceptFriends: userId },
+          }
+        );
+      }
+
+      // Việc 3: Thêm {user_id, room_chat_id} của B vào friendList của A
+      // Việc 4: Xóa id của ông B trong requestFriends của A
+      const existBInA = await User.findOne({
+        _id: userId,
+        requestFriends: myUserId,
+      }); // Kiểm tra xem trong mảng requestFriends của B có tồn tại ông A không
+
+      if (existBInA) {
+        await User.updateOne(
+          { _id: userId },
+          {
+            $push: {
+              friendList: {
+                user_id: myUserId,
+                room_chat_id: "",
+              },
+            },
+            $pull: { requestFriends: myUserId },
+          }
+        );
+      }
+    });
   });
 };
