@@ -2,7 +2,10 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 
 block main 
-    .container.my-3 
+    .container.my-3
+
+        include ../../partials/list-btn-users.pug
+
         .row 
             .col-12 
                 +box-head(pageTitle)
@@ -48,5 +51,4 @@ block main
                                 i.fa-solid.fa-paper-plane
         
         div(class="tooltip" role="tooltip")
-            emoji-picker(class="light")
-                        
+            emoji-picker(class="light")          

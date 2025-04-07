@@ -467,3 +467,64 @@
 }
 
 /* End Typing */
+
+/* Info user */
+.box-user {
+  display: flex;
+  align-items: flex-start;
+  position: relative; /* Cho phép định vị phần tử con tuyệt đối */
+  background: #ffffff;
+  padding: 10px 15px;
+  border-radius: 8px;
+  max-width: 300px;
+  min-height: 80px; /* Đảm bảo có chiều cao để đặt nút dưới */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.inner-avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.inner-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-right: 80px; /* Chừa chỗ cho nút ở góc phải */
+}
+
+.inner-name {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.inner-button {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+.inner-button .btn-primary {
+  padding: 2px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.inner-button .btn-primary:nth-child(1) {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.inner-button .btn-primary:nth-child(2) {
+  background-color: #e2e5e9;
+  border-color: #e2e5e9;
+  color: black;
+}
+/* End info user */
