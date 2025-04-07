@@ -38,4 +38,6 @@ router.post("/password/otp", controller.otpPasswordPost);
 
 router.get("/info", authMiddleware.requireAuth, controller.info);
 
+router.get("/edit", authMiddleware.requireAuth, controller.edit);
+
 module.exports = router;

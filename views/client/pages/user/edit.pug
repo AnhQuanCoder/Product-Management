@@ -1,0 +1,85 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+
+block main
+    +alert-success(5000)
+    +alert-error(5000)
+
+    .container.my-3
+        +box-head(pageTitle)
+
+        form(
+        action=`/user/edit?_method=PATCH`
+        method="POST"
+        enctype="multipart/form-data"
+        )
+            div(class="form-group")
+            label(for="fullName") Họ tên *
+            input(
+                type="text"
+                class="form-control"
+                id="fullName"
+                name="fullName"
+                value=user.fullName
+                require
+            )
+
+            div(class="form-group")
+            label(for="email") Email *
+            input(
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                value=user.email
+                require
+            )
+
+            div(class="form-group")
+            label(for="password") Mật khẩu *
+            input(
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                require
+            )
+
+            div(class="form-group")
+            label(for="phone") Số điện thoại
+            input(
+                type="number"
+                class="form-control"
+                id="phone"
+                name="phone"
+                value=user.phone
+                require
+            )
+
+            div(
+            class="form-group"
+            upload-image
+            )
+                label(for="avatar") Ảnh
+                input(
+                    type="file"
+                    class="form-control-file"
+                    id="avatar"
+                    name="avatar"
+                    accept="image/*"
+                    upload-image-input
+                )
+                div(class="image-container")
+                    img(
+                        src=user.avatar ? user.avatar : ""
+                        upload-image-preview
+                        class="image-preview"
+                    )
+                    span(class="close-image d-none" close-image) X
+
+            div(class="form-group")
+            button(
+                type="submit"
+                class="btn btn-primary"
+            ) Thay đổi

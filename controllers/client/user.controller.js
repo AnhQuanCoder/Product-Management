@@ -184,3 +184,13 @@ module.exports.info = async (req, res) => {
     user: user,
   });
 };
+
+// [GET] /user/edit
+module.exports.edit = async (req, res) => {
+  const userId = res.locals.user.id;
+  const user = await User.findOne({ _id: userId }).select("-password -deleted");
+
+  res.render("client/pages/user/edit", {
+    pageTitle: "Chỉnh sửa thông tin cá nhân",
+  });
+};

@@ -7,4 +7,23 @@ block main
             .col-12
                 +box-head(pageTitle)
 
-        div #{user}
+        img(
+            src=user.avatar ? user.avatar : "/images/user-avatar-male.png"
+            width="150px"
+            class="mb-3"
+            alt=user.fullName
+        )
+
+        if (user.fullName)
+            p Họ tên: <b>#{user.fullName}</b>
+
+        if (user.email)
+            p Email: <b>#{user.email}</b>  
+
+
+        p Số điện thoại: <b>#{user.phone}</b> 
+
+        a(
+            href=`/user/edit`
+            class="btn btn-primary"
+        ) Chỉnh sửa thông tin

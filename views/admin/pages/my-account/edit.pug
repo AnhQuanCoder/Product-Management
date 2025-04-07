@@ -67,7 +67,7 @@ block main
             )
             div(class="image-container")
                 img(
-                    src=user.avatar == "" ? "" : user.avatar
+                    src=user.avatar ? user.avatar : ""
                     upload-image-preview
                     class="image-preview"
                 )
