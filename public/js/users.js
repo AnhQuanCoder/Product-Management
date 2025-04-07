@@ -12,7 +12,7 @@ if (listBtnAddFriend.length > 0) {
 }
 // End Chức năng gửi yêu cầu
 
-// Chức năng hủy yêu cầu
+// Chức năng hủy yêu cầu kết bạn
 const listBtnCancelFriend = document.querySelectorAll("[btn-cancel-friend]");
 if (listBtnCancelFriend.length > 0) {
   listBtnCancelFriend.forEach((button) => {
@@ -24,4 +24,18 @@ if (listBtnCancelFriend.length > 0) {
     });
   });
 }
-// End Chức năng hủy yêu cầu
+// End Chức năng hủy yêu cầu kết bạn
+
+// Chức năng từ chối lời mời kết bạn
+const listBtnRefuseFriend = document.querySelectorAll("[btn-refuse-friend]");
+if (listBtnRefuseFriend.length > 0) {
+  listBtnRefuseFriend.forEach((button) => {
+    button.addEventListener("click", () => {
+      button.closest(".box-user").classList.add("refuse");
+
+      const userId = button.getAttribute("btn-refuse-friend");
+      socket.emit("CLIENT_REFUSE_FRIEND", userId);
+    });
+  });
+}
+// End Chức năng từ chối lời mời kết bạn
