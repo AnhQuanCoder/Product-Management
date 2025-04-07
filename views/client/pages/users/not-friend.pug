@@ -11,8 +11,8 @@ block main
 
         .row 
             each user in users 
-                .col-6 
-                    div(class="box-user")
+                .col-4 
+                    div(class="box-user mb-3")
                         div(class="inner-avatar")
                             img(
                                 src=user.avatar ? user.avatar : "/images/user-avatar-male.png"
@@ -23,9 +23,12 @@ block main
                             div(class="inner-button")
                                 button(
                                     class="btn btn-sm btn-primary mr-1"
-                                    button-add-friend=user.id
+                                    btn-add-friend=user.id
                                 ) Kết bạn
                                 button(
                                     class="btn btn-sm btn-primary mr-1"
-                                    button-cancel-friend=user.id
+                                    btn-cancel-friend=user.id
                                 ) Hủy
+    
+    block script 
+        script(type="module" src="/js/users.js") 

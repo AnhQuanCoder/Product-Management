@@ -499,7 +499,8 @@
 
 .inner-name {
   font-weight: bold;
-  font-size: 14px;
+  font-size: 12px;
+  color: black;
 }
 
 .inner-button {
@@ -526,6 +527,20 @@
   background-color: #e2e5e9;
   border-color: #e2e5e9;
   color: black;
+}
+
+/* Mặc định ẩn nút "Hủy" */
+.box-user [btn-cancel-friend] {
+  display: none;
+}
+
+/* Khi có class add: ẩn "Kết bạn", hiện "Hủy" */
+.box-user.add [btn-add-friend] {
+  display: none;
+}
+
+.box-user.add [btn-cancel-friend] {
+  display: inline-block;
 }
 /* End info user */
 
