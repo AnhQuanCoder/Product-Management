@@ -194,3 +194,12 @@ module.exports.edit = async (req, res) => {
     pageTitle: "Chỉnh sửa thông tin cá nhân",
   });
 };
+
+// [PATCH] /user/editPatch
+module.exports.editPatch = async (req, res) => {
+  const userId = res.locals.user.id;
+
+  await User.updateOne({ _id: userId }, req.body);
+  req.flash("success", "Cập nhật thông tin thành công");
+  res.redirect(`back`);
+};
