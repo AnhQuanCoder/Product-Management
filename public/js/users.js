@@ -79,16 +79,18 @@ socket.on("SERVER_RETURN_LENGTH_ACCEPT_FRIEND", (data) => {
 
 // SERVER_RETURN_INFO_ACCEPT_FRIEND
 socket.on("SERVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
+  // Trang lời mời kết bạn
   const dataUsersAccept = document.querySelector("[data-users-accept]");
-  const userId = dataUsersAccept.getAttribute("data-users-accept");
+  if (dataUsersAccept) {
+    const userId = dataUsersAccept.getAttribute("data-users-accept");
 
-  if (userId == data.userId) {
-    // Vẽ user ra giao diện
-    const newBoxUser = document.createElement("div");
-    newBoxUser.classList.add("col-4");
-    newBoxUser.setAttribute("user-id", data.userInfoA._id);
+    if (userId == data.userId) {
+      // Vẽ user ra giao diện
+      const newBoxUser = document.createElement("div");
+      newBoxUser.classList.add("col-4");
+      newBoxUser.setAttribute("user-id", data.userInfoA._id);
 
-    newBoxUser.innerHTML = `
+      newBoxUser.innerHTML = `
       <div class="box-user mb-3">
         <div class="inner-avatar">
           <img src=${
@@ -112,19 +114,37 @@ socket.on("SERVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
         </div>
       </div>
     `;
-    dataUsersAccept.appendChild(newBoxUser);
-    // End Vẽ user ra giao diện
+      dataUsersAccept.appendChild(newBoxUser);
+      // End Vẽ user ra giao diện
 
-    // Xóa lời mời kết bạn
-    const btnRefuseFriend = newBoxUser.querySelector("[btn-refuse-friend]");
-    refuseFriend(btnRefuseFriend);
-    // End Xóa lời mời kết bạn
+      // Xóa lời mời kết bạn
+      const btnRefuseFriend = newBoxUser.querySelector("[btn-refuse-friend]");
+      refuseFriend(btnRefuseFriend);
+      // End Xóa lời mời kết bạn
 
-    // Chức năng chấp nhận lời mời kết bạn
-    const btnAcceptFriend = newBoxUser.querySelector("[btn-accept-friend]");
-    acceptFriend(btnAcceptFriend);
-    // End Chức năng chấp nhận lời mời kết bạn
+      // Chức năng chấp nhận lời mời kết bạn
+      const btnAcceptFriend = newBoxUser.querySelector("[btn-accept-friend]");
+      acceptFriend(btnAcceptFriend);
+      // End Chức năng chấp nhận lời mời kết bạn
+    }
   }
+  // End Trang lời mời kết bạn
+
+  // Trang danh sách người dùng
+  const dataUsersNotFriend = document.querySelector("[data-users-not-friend]");
+  if (dataUsersNotFriend) {
+    const userId = dataUsersNotFriend.getAttribute("data-users-not-friend");
+    if (userId == data.userId) {
+      // Xóa A khỏi danh sách của B
+      const boxUserRemove = dataUsersNotFriend.querySelector(
+        `[user-id="${data.userInfoA._id}"]`
+      );
+      if (boxUserRemove) {
+        dataUsersNotFriend.removeChild(boxUserRemove);
+      }
+    }
+  }
+  // End Trang danh sách người dùng
 });
 // End SERVER_RETURN_INFO_ACCEPT_FRIEND
 
