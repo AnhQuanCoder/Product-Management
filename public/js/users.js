@@ -164,3 +164,27 @@ socket.on("SERVER_RETURN_USER_ID_CANCEL_FRIEND", (data) => {
   }
 });
 // End SERVER_RETURN_USER_ID_CANCEL_FRIEND
+
+// Funciton status online/offline
+const statusOnlineOffline = (status, userId) => {
+  const dataUsersFriend = document.querySelector("[data-users-friend]");
+  if (dataUsersFriend) {
+    const boxUser = dataUsersFriend.querySelector(`[user-id="${userId}"]`);
+    if (boxUser) {
+      boxUser.querySelector("[status]").setAttribute("status", status);
+    }
+  }
+};
+// End Funciton status online/offline
+
+// SERVER_RETURN_USER_ONLINE
+socket.on("SERVER_RETURN_USER_ONLINE", (userId) => {
+  statusOnlineOffline("online", userId);
+});
+// End SERVER_RETURN_USER_ONLINE
+
+// SERVER_RETURN_USER_OFFLINE
+socket.on("SERVER_RETURN_USER_OFFLINE", (userId) => {
+  statusOnlineOffline("offline", userId);
+});
+// End SERVER_RETURN_USER_OFFLINE
