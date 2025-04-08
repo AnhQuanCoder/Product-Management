@@ -11,6 +11,7 @@ module.exports.notFriend = async (req, res) => {
   const myUser = await User.findOne({ _id: userId });
   const listRequestFriends = myUser.requestFriends;
   const listAcceptFriends = myUser.acceptFriends;
+  const listFriends = myUser.friendList;
 
   // Lọc data hiển thị những người dùng web và loại trừ chính mình, nhừng người đã gửi lời mời, những người đã chấp nhận bạn bè
   const users = await User.find({
@@ -18,6 +19,7 @@ module.exports.notFriend = async (req, res) => {
       { _id: { $ne: userId } },
       { _id: { $nin: listRequestFriends } },
       { _id: { $nin: listAcceptFriends } },
+      { _id: { $nin: listFriends } },
     ],
     status: "active",
   }).select("fullName avatar");

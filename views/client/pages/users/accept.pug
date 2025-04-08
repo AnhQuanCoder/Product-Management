@@ -9,7 +9,7 @@ block main
             .col-12 
                 +box-head(pageTitle)
 
-        .row 
+        .row(data-users-accept=user.id)
             each user in users 
                 .col-4 
                     div(class="box-user mb-3")
