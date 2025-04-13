@@ -97,6 +97,11 @@ module.exports.friends = async (req, res) => {
     deleted: false,
   }).select("avatar fullName statusOnline");
 
+  users.forEach((user) => {
+    const infoUser = friendList.find((item) => user.id == item.user_id);
+    user.roomChatId = infoUser.room_chat_id;
+  });
+
   res.render("client/pages/users/friends.pug", {
     pageTitle: "Danh sách bạn bè",
     users: users,
