@@ -144,8 +144,9 @@ socket.on("SERVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
       }
     }
   }
-  // End Trang danh sách người dùng
 });
+// End Trang danh sách người dùng
+
 // End SERVER_RETURN_INFO_ACCEPT_FRIEND
 
 // SERVER_RETURN_USER_ID_CANCEL_FRIEND
