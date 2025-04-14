@@ -13,24 +13,17 @@ block main
         .row 
             .col-12 
                 .chat(my-id=user.id)
-                    //- .inner-head 
-                    //-     .inner-avatar EY 
-                    //-     .inner-name Em yêu 
+                    .inner-head.d-flex.align-items-center.p-2
+                        img.chat-avatar(src=infoFriend.avatar ? infoFriend.avatar: "/images/user-avatar-male.png", alt="Avatar")
+                        span.chat-name.ml-2 #{infoFriend.fullName}
                     .inner-body
                         each chat in chats
                             div(class=chat.infoUser.id == user.id ? "inner-outgoing": "inner-incoming")
                                 if (chat.infoUser.id != user.id)
-                                    .inner-name #{chat.infoUser.fullName}
+                                    //- .inner-name #{chat.infoUser.fullName}
                                 .inner-content
                                     | #{chat.content}
                         div(class="inner-list-typing")
-
-                            //- div(class="box-typing")
-                            //-     div(class="inner-name") Lê Văn B
-                            //-     div(class="inner-dots")
-                            //-         span 
-                            //-         span 
-                            //-         span
 
                     .inner-foot
                         form(

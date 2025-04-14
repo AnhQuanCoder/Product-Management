@@ -1,5 +1,6 @@
 const Chat = require("../../models/chat.model");
 const User = require("../../models/user.model");
+const RoomChat = require("../../models/room-chat.model");
 
 //  [GET] /chat/:roomChatId
 module.exports.index = async (req, res) => {
@@ -49,8 +50,24 @@ module.exports.index = async (req, res) => {
   }
   // End SocketIO
 
+  const listFriend = await RoomChat.findOne({
+    _id: roomChatId,
+  });
+
+  let idFriend;
+  listFriend.users.forEach((friend) => {
+    if (friend.user_id != userId) {
+      idFriend = friend.user_id;
+    }
+  });
+
+  const infoFriend = await User.findOne({
+    _id: idFriend,
+  }).select("fullName avatar");
+
   res.render("client/pages/chat/index.pug", {
     pageTitle: "Chat",
     chats: chats,
+    infoFriend: infoFriend,
   });
 };

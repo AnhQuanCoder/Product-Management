@@ -2,7 +2,7 @@ const User = require("../../models/user.model");
 const RoomChat = require("../../models/room-chat.model");
 const Chat = require("../../models/chat.model");
 
-module.exports = async (req, res) => {
+module.exports = async (res) => {
   _io.once("connection", (socket) => {
     // Tính năng người dùng gửi yêu cầu kết bạn
     socket.on("CLIENT_ADD_FRIEND", async (userId) => {
