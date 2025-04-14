@@ -30,8 +30,8 @@ header.header
             .col-7
                 .inner-menu 
                     ul 
-                        li 
-                            a(href="/") Trang chủ
+                        //- li 
+                        //-     a(href="/") Trang chủ
     
                         li(class="sub-menu") 
                             - const pathProduct = "/products"
@@ -43,6 +43,8 @@ header.header
                         if user
                             li
                                 a(href="/users/friends") Bạn bè
+                            li
+                                a(href="/rooms-chat") Phòng chat
                             li 
                                 a(href="/user/info", style="margin-right: 10px;") #{user.fullName}
                                 a(href="/user/logout") Đăng xuất

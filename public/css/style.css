@@ -647,3 +647,39 @@
 }
 
 /* End Badge */
+
+/* Rooms-chat */
+.box-room {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+  gap: 15px;
+}
+
+.inner-avatar img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+
+.inner-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.inner-name {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.inner-buttons .btn {
+  padding: 3px 12px;
+  font-size: 14px;
+}
+
+/* End Rooms-chat */

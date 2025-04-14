@@ -12,7 +12,6 @@ module.exports.isAccess = async (req, res, next) => {
     });
 
     if (isRoomChatExist) {
-      console.log("di vao day");
       next();
     } else {
       res.redirect("/");
