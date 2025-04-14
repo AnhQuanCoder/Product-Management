@@ -13,18 +13,19 @@ block main
                     class="btn btn-sm btn-success mr-1"
                 ) Tạo phòng chat
 
-        .row 
-            .col-6 
-                div(class="box-room")
-                    div(class="inner-avatar")
-                        img(
-                            src=`/images/user-avatar-male.png`
-                            alt="Nguyễn Phúc Tiến"
-                        ) 
-                    div(class="inner-info")
-                        div(class="inner-name") Nguyễn Phúc Tiến
-                        div(class="inner-buttons")
-                            a(
-                                href="#"
-                                class="btn btn-sm btn-primary"
-                            ) Nhắn tin
+        .row
+            each room in listRoomChat
+                .col-4 
+                    div(class="box-room")
+                        div(class="inner-avatar")
+                            img(
+                                src=`/images/user-avatar-male.png`
+                                alt=room.title
+                            ) 
+                        div(class="inner-info")
+                            div(class="inner-name") #{room.title}
+                            div(class="inner-buttons")
+                                a(
+                                    href=`/chat/${room.id}`
+                                    class="btn btn-sm btn-primary"
+                                ) Nhắn tin

@@ -13,9 +13,9 @@ block main
         .row 
             .col-12 
                 .chat(my-id=user.id)
-                    .inner-head.d-flex.align-items-center.p-2
-                        img.chat-avatar(src=infoFriend.avatar ? infoFriend.avatar: "/images/user-avatar-male.png", alt="Avatar")
-                        span.chat-name.ml-2 #{infoFriend.fullName}
+                    //- .inner-head.d-flex.align-items-center.p-2
+                    //-     img.chat-avatar(src=infoFriend.avatar ? infoFriend.avatar: "/images/user-avatar-male.png", alt="Avatar")
+                    //-     span.chat-name.ml-2 #{infoFriend.fullName}
                     .inner-body
                         each chat in chats
                             div(class=chat.infoUser.id == user.id ? "inner-outgoing": "inner-incoming")
